@@ -61,13 +61,11 @@ node {
     // This stage is added to download Ansible from Artifactory and extract it
     stage('Download artifacts from Artifactory server and extract it') {
         echo "********* Start to download artifacts 'Ansible playbooks' from Artifactory server **********"
-        String frameworkPath = "${WORKSPACE}/ansible/"
+        GString frameworkPath = "${WORKSPACE}/ansible/"
+        GString frameworkArtifactoryPath = "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz"
         String frameworkVersion = "0.1"
         String frameworkName = "framework"
-        def downloadSpec = """{
-              "files": [{"pattern": "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz",
-                        "target": "${frameworkPath}"
-                    }]}"""
+        GString downloadSpec = """{"files": [{"pattern": "${frameworkArtifactoryPath}", "target": "${frameworkPath}"}]}"""
         def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
         server.download(downloadSpec)
         echo "start to extract '${frameworkName}-${frameworkVersion}.tgz'"
