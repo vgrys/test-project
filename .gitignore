@@ -2,7 +2,6 @@
 *.swp
 .idea
 .idea/*
-.git/*
 *.iml
 *.ipr
 *.iws
