@@ -12,10 +12,6 @@ String projectName = 'sample-project'
 
 node {
 
-    // Initialization - do not change
-    currentBuild.result = "SUCCESS"
-    def ERROR_TYPE = ""
-
     echo "DEBUG CODE -----> Running ${env.JOB_NAME} on ${env.JENKINS_URL} for branch ${env.BRANCH_NAME}"
 
     // --------------------------------------
@@ -24,17 +20,8 @@ node {
     stage('Clean Workspace') {
         echo "********** Clean Jenkins workspace ***********"
         deleteDir()
-    }
-
-    // --------------------------------------
-    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
-    // CHECK OUT SCM STEPS
-    stage('Check out Source') {
-        echo "********** Checkout SCM ***********"
         checkout scm
     }
-
-    // http://192.168.56.105:8081/artifactory/bigdata-dss-automation/framework/0.1/framework-0.1.tgz
 
 //    stage('Check out "cd-cd-framework" repo') {
 //        echo "********* Check out 'framework' repo **********"
