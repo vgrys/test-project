@@ -31,6 +31,7 @@ node {
 //        echo "********* End of check out 'framework' repo **********"
 //    }
 
+
     // --------------------------------------
     // This stage is added to perform project build
     stage('Create project archive') {
