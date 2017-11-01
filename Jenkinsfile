@@ -8,7 +8,8 @@ String artifactoryUrl = 'http://192.168.56.105:8081'
 String atfVersion = '0.0.1'
 String projectVersion = '0.1'
 String projectName = 'sample-project'
-
+String frameworkVersion = "0.1"
+String frameworkName = "framework"
 
 node {
 
@@ -63,8 +64,6 @@ node {
         echo "********* Start to download artifacts 'Ansible playbooks' from Artifactory server **********"
         GString frameworkPath = "${WORKSPACE}/ansible/"
         GString frameworkArtifactoryPath = "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz"
-        String frameworkVersion = "0.1"
-        String frameworkName = "framework"
         GString downloadSpec = """{"files": [{"pattern": "${frameworkArtifactoryPath}", "target": "${frameworkPath}"}]}"""
         def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
         server.download(downloadSpec)
