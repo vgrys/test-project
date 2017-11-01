@@ -109,7 +109,7 @@ node {
         echo "********* Start to deploy AFT project **********"
         withCredentials([usernamePassword(credentialsId: 'arifactoryID', usernameVariable: 'artifactory_user', passwordVariable: 'artifactory_pwd')]) {
             withCredentials([file(credentialsId: 'zeph', variable: 'zephCred')]) {
-                dir("${WORKSPACE}/framework/ansible") {
+                dir("${WORKSPACE}/ansible") {
                     sh "ansible-playbook --extra-vars 'server=prod user=artifactory_user password=artifactory_pwd artifactoryRepo=${artifactoryRepo} artifactoryUrl=${artifactoryUrl} atfVersion=${atfVersion} workspace=${WORKSPACE} zephCred=${zephCred}' ATFDeployment.yml"
                 }
             }
