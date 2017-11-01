@@ -1,0 +1,14 @@
+*~
+*.swp
+.idea
+.idea/*
+.git/*
+*.iml
+*.ipr
+*.iws
+target
+.DS_Store
+.project
+.classpath
+.settings
+/.metadata
