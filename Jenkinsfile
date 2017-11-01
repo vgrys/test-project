@@ -66,8 +66,8 @@ node {
         String frameworkName = "framework"
         def downloadSpec = """{
               "files": [{"pattern": "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz",
-                        "target": "${frameworkPath}"}]
-                    }"""
+                        "target": "${frameworkPath}"
+                    }]}"""
         def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
         server.download(downloadSpec)
         echo "start to extract '${frameworkName}-${frameworkVersion}.tgz'"
