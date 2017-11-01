@@ -65,10 +65,8 @@ node {
         String frameworkVersion = "0.1"
         String frameworkName = "framework"
         def downloadSpec = """{
-              "files": [{
-                  "pattern": "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz",
-                  "target": "${frameworkPath}"
-                        }]
+              "files": [{"pattern": "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz",
+                        "target": "${frameworkPath}"}]
                     }"""
         def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
         server.download(downloadSpec)
