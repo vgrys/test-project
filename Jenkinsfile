@@ -1,6 +1,6 @@
 #!/usr/bin/groovy
 
-@Library('shared-library@Artifactory-with-plugin')
+@Library('shared-library@master')
 import com.epam.ArtifactoryToolsPlugin
 
 String artifactoryRepo = 'bigdata-dss-automation'
