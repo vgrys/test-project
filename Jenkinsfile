@@ -37,7 +37,7 @@ def reportGitParams() {
 }
 
 def ansible(command) {
-    return "ansible-playbook --extra-vars 'server=dev user=artifactory_user password=artifactory_pwd ${command}"
+    return "ansible-playbook --extra-vars 'server=${targetGroup} user=artifactory_user password=artifactory_pwd ${command}"
 }
 
 def runDeployATF(String artifactoryRepo, String artifactoryUrl, String atfVersion, String projectName) {
@@ -75,6 +75,7 @@ String frameworkName = "framework"
 
 String targetHostUser = 'vagrant'
 String targetHost = "${targetHostUser}@192.168.56.21"
+string targetGroup = "prod"
 
 node {
 
