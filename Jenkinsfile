@@ -110,6 +110,23 @@ node {
 //        sh "ssh -o StrictHostKeyChecking=no ${targetHost} /bin/bash -c '\"${commandToRun}\"'"
 //    }
 
+//    stage('Project deployment') {
+//        echo pad("Start project deployment")
+//        sshagent([sshKeyId]) {
+//            runDeployProject(artifactoryUrl, artifactoryRepo, projectVersion, projectName)
+//        }
+//        echo pad("End of project deployment")
+//    }
+
+
+    stage('ATF deploy') {
+        echo pad("Start to deploy AFT project **********")
+//        sshagent([sshKeyId]) {
+            runDeployATF(artifactoryRepo, artifactoryUrl, atfVersion, projectName, targetGroup)
+//        }
+        echo pad("End of deploy AFT project")
+    }
+
     stage('Project cleanup') {
         echo pipelineConfig.pad("Start project cleanup")
         pipelineConfig.runProjectCleanup(projectName, targetGroup)
