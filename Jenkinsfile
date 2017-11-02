@@ -25,7 +25,7 @@ def sshCli(host, commandToRun) {
 }
 
 def executeAnsible(ansibleCommand) {
-    withCredentials([usernamePassword(credentialsId: 'artifactoryID', usernameVariable: 'artifactory_user', passwordVariable: 'artifactory_pwd')]) {
+    withCredentials([usernamePassword(credentialsId: 'arifactoryID', usernameVariable: 'artifactory_user', passwordVariable: 'artifactory_pwd')]) {
         dir("${WORKSPACE}/ansible") {
             sh ansibleCommand
         }
