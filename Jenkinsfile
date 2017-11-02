@@ -122,7 +122,7 @@ node {
     stage('ATF deploy') {
         echo pipelineConfig.pad("Start to deploy AFT project **********")
 //        sshagent([sshKeyId]) {
-            runDeployATF(artifactoryRepo, artifactoryUrl, atfVersion, projectName, targetGroup)
+        pipelineConfig.runDeployATF(artifactoryRepo, artifactoryUrl, atfVersion, projectName, targetGroup)
 //        }
         echo pipelineConfig.pad("End of deploy AFT project")
     }
