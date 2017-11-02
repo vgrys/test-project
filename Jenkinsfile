@@ -26,7 +26,7 @@ def sshCli(host, commandToRun) {
 
 def executeAnsible(ansibleCommand) {
     withCredentials([usernamePassword(credentialsId: 'artifactoryIDVG', usernameVariable: 'artifactory_user', passwordVariable: 'artifactory_pwd')]) {
-        dir("${WORKSPACE}/ci-cd-framework/ansible") {
+        dir("${WORKSPACE}/ansible") {
             sh ansibleCommand
         }
     }
@@ -57,9 +57,9 @@ def runDeployProject(artifactoryUrl, artifactoryRepo, projectVersion, projectNam
 }
 
 
-def runProjectCleanup(artifactoryUrl, artifactoryRepo, projectVersion, projectName) {
-    cmd = ansible("artifactoryUrl=${artifactoryUrl} artifactoryRepo=${artifactoryRepo} projectVersion=${projectVersion} projectName=${projectName} workspace=${WORKSPACE}' projectCleanup.yml")
-    executeAnsible(cmd)
+def runProjectCleanup(projectName) {
+    cmd = ansible("projectName=${projectName}' projectCleanup.yml")
+        executeAnsible(cmd)
 }
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
