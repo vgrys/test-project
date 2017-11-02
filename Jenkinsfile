@@ -40,42 +40,41 @@ node {
 //
 //    // --------------------------------------
 //    // This stage is added to perform project build
-//    stage('Create project archive') {
-//        echo "********* Start to create project archive **********"
-//        GString sourceFolder = "${WORKSPACE}"
-//        def zip = new ZipTools()
-//        def bundlePath = zip.bundle(env, sourceFolder, ['.git', '.gitignore'])
-//        echo "created an archive $bundlePath"
-//        echo "********* End of create project archive **********"
-//    }
+    stage('Create project archive') {
+        echo "********* Start to create project archive **********"
+        GString sourceFolder = "${WORKSPACE}"
+        def zip = new ZipTools()
+        def bundlePath = zip.bundle(env, sourceFolder, ['.git', '.gitignore'])
+        echo "created an archive $bundlePath"
+        echo "********* End of create project archive **********"
+    }
 //
 //    // --------------------------------------
 //    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
 //    // This stage is added for Jenkins to upload artifacts to Artifactory server
-//    stage('Upload artifacts to Artifactory server') {
-//        echo "********* Start to upload artifacts to Artifactory server **********"
-//        def atfArchivePath = null
-//        GString projectArchivePath = "${WORKSPACE}/*tgz"
-//        def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
-//        def artifactory = new ArtifactoryToolsPlugin()
-//        artifactory.artifactoryConfig(env, artifactoryRepo, "${atfArchivePath}", "${projectArchivePath}", atfVersion, projectName, projectVersion)
-//        artifactoryServer.upload(env.uploadSpec)
-//        echo "********* End of upload artifacts to Artifactory server **********"
-//    }
+    stage('Upload artifacts to Artifactory server') {
+        echo "********* Start to upload artifacts to Artifactory server **********"
+        GString projectArchivePath = "${WORKSPACE}/*tgz"
+        def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
+        def artifactory = new ArtifactoryToolsPlugin()
+        artifactory.artifactoryConfig(env, artifactoryRepo, null, "${projectArchivePath}", atfVersion, projectName, projectVersion)
+        artifactoryServer.upload(env.uploadSpec)
+        echo "********* End of upload artifacts to Artifactory server **********"
+    }
 //
 //    // --------------------------------------
 //    // This stage is added to download Ansible from Artifactory and extract it
-//    stage('Download artifacts from Artifactory server and extract it') {
-//        echo "********* Start to download artifacts 'Ansible playbooks' from Artifactory server **********"
-//        GString frameworkPath = "${WORKSPACE}/ansible/"
-//        GString frameworkArtifactoryPath = "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz"
-//        GString downloadSpec = """{"files": [{"pattern": "${frameworkArtifactoryPath}", "target": "${frameworkPath}"}]}"""
-//        def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
-//        server.download(downloadSpec)
-//        echo "start to extract '${frameworkName}-${frameworkVersion}.tgz'"
-//        sh "tar -xzf ${frameworkPath}/${frameworkName}/${frameworkVersion}/${frameworkName}-${frameworkVersion}.tgz -C ${frameworkPath}"
-//        echo "********* End of download artifacts 'Ansible playbooks' from Artifactory server **********"
-//    }
+    stage('Download artifacts from Artifactory server and extract it') {
+        echo "********* Start to download artifacts 'Ansible playbooks' from Artifactory server **********"
+        GString frameworkPath = "${WORKSPACE}/ansible/"
+        GString frameworkArtifactoryPath = "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz"
+        GString downloadSpec = """{"files": [{"pattern": "${frameworkArtifactoryPath}", "target": "${frameworkPath}"}]}"""
+        def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
+        server.download(downloadSpec)
+        echo "start to extract '${frameworkName}-${frameworkVersion}.tgz'"
+        sh "tar -xzf ${frameworkPath}/${frameworkName}/${frameworkVersion}/${frameworkName}-${frameworkVersion}.tgz -C ${frameworkPath}"
+        echo "********* End of download artifacts 'Ansible playbooks' from Artifactory server **********"
+    }
 //
 //    // --------------------------------------
 //    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
