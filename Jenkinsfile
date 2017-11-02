@@ -112,7 +112,7 @@ node {
 
     stage('Project cleanup') {
         echo pipelineConfig.pad("Start project cleanup")
-        pipelineConfig.runProjectCleanup(projectName)
+        pipelineConfig.runProjectCleanup(projectName, targetGroup)
         echo pipelineConfig.pad("End of project cleanup")
     }
 
