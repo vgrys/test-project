@@ -49,7 +49,7 @@ node {
     // This stage is added for Jenkins to upload artifacts to Artifactory server
     stage('Upload artifacts to Artifactory server') {
         echo "********* Start to upload artifacts to Artifactory server **********"
-//        GString atfArchivePath = "${WORKSPACE}/dist/*.tar.gz"
+        GString atfArchivePath = ""
         GString projectArchivePath = "${WORKSPACE}/*tgz"
         def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
         def artifactory = new ArtifactoryToolsPlugin()
