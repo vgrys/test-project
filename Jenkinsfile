@@ -112,8 +112,8 @@ node {
 
     stage('Project cleanup') {
         echo pipelineConfig.pad("Start project cleanup")
+//        pipelineConfig.ansible("projectName=${projectName}' projectCleanup.yml")
         pipelineConfig.runProjectCleanup(projectName, targetGroup)
         echo pipelineConfig.pad("End of project cleanup")
     }
-
 }
