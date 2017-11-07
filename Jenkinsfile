@@ -64,7 +64,7 @@ node {
 
     stage('Upload artifacts to Artifactory server') {
         echo "********* Start to upload artifacts to Artifactory server **********"
-        artifactoryTools.projectUpload()
+        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, projectName, projectVersion)
         echo "********* End of upload artifacts to Artifactory server **********"
     }
 
