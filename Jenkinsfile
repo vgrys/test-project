@@ -18,28 +18,28 @@ string targetGroup = "prod"
 
 node {
 
-//    echo "DEBUG CODE -----> Running ${env.JOB_NAME} on ${env.JENKINS_URL} for branch ${env.BRANCH_NAME}"
-//
-//    // --------------------------------------
-//    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
-//    // CLEAN WORKSPACE STEPS
-//    stage('Clean Workspace') {
-//        echo "********** Clean Jenkins workspace ***********"
-//        deleteDir()
-//        checkout scm
+    echo "DEBUG CODE -----> Running ${env.JOB_NAME} on ${env.JENKINS_URL} for branch ${env.BRANCH_NAME}"
+
+    // --------------------------------------
+    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
+    // CLEAN WORKSPACE STEPS
+    stage('Clean Workspace') {
+        echo "********** Clean Jenkins workspace ***********"
+        deleteDir()
+        checkout scm
+    }
+
+//    stage('Check out "cd-cd-framework" repo') {
+//        echo "********* Check out 'framework' repo **********"
+//        dir('framework') {
+//            git branch: 'Artifactory-with-plugin', url: 'https://github.com/vgrys/VAULT.git'
+//        }
+//        echo "********* End of check out 'framework' repo **********"
 //    }
-//
-////    stage('Check out "cd-cd-framework" repo') {
-////        echo "********* Check out 'framework' repo **********"
-////        dir('framework') {
-////            git branch: 'Artifactory-with-plugin', url: 'https://github.com/vgrys/VAULT.git'
-////        }
-////        echo "********* End of check out 'framework' repo **********"
-////    }
-//
-//
-//    // --------------------------------------
-//    // This stage is added to perform project build
+
+
+    // --------------------------------------
+    // This stage is added to perform project build
     stage('Create project archive') {
         echo "********* Start to create project archive **********"
         GString sourceFolder = "${WORKSPACE}"
