@@ -1,7 +1,7 @@
 #!/usr/bin/groovy
 
 @Library('shared-library@release/version1')
-import com.epam.ArtifactoryToolsPlugin
+//import com.epam.ArtifactoryToolsPlugin
 
 
 String artifactoryRepo = 'bigdata-dss-automation'
@@ -64,27 +64,23 @@ node {
 
     stage('Upload artifacts to Artifactory server') {
         echo "********* Start to upload artifacts to Artifactory server **********"
-        GString projectArchivePath = "${WORKSPACE}/*tgz"
-        def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
-        def artifactory = new ArtifactoryToolsPlugin()
-        artifactory.artifactoryProjectConfig(env, artifactoryRepo, "${projectArchivePath}", projectName, projectVersion)
-        artifactoryServer.upload(env.uploadSpec)
+        artifactoryTools.projectUpload()
         echo "********* End of upload artifacts to Artifactory server **********"
     }
 
 //    // --------------------------------------
 //    // This stage is added to download Ansible from Artifactory and extract it
-    stage('Download artifacts from Artifactory server and extract it') {
-        echo "********* Start to download artifacts 'Ansible playbooks' from Artifactory server **********"
-        GString frameworkPath = "${WORKSPACE}/ansible/"
-        GString frameworkArtifactoryPath = "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz"
-        GString downloadSpec = """{"files": [{"pattern": "${frameworkArtifactoryPath}", "target": "${frameworkPath}"}]}"""
-        def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
-        server.download(downloadSpec)
-        echo "start to extract '${frameworkName}-${frameworkVersion}.tgz'"
-        sh "tar -xzf ${frameworkPath}/${frameworkName}/${frameworkVersion}/${frameworkName}-${frameworkVersion}.tgz -C ${frameworkPath}"
-        echo "********* End of download artifacts 'Ansible playbooks' from Artifactory server **********"
-    }
+//    stage('Download artifacts from Artifactory server and extract it') {
+//        echo "********* Start to download artifacts 'Ansible playbooks' from Artifactory server **********"
+//        GString frameworkPath = "${WORKSPACE}/ansible/"
+//        GString frameworkArtifactoryPath = "${artifactoryRepo}/${frameworkName}/${frameworkVersion}/*.tgz"
+//        GString downloadSpec = """{"files": [{"pattern": "${frameworkArtifactoryPath}", "target": "${frameworkPath}"}]}"""
+//        def server = Artifactory.newServer url: "${artifactoryUrl}/artifactory/", credentialsId: 'arifactoryID'
+//        server.download(downloadSpec)
+//        echo "start to extract '${frameworkName}-${frameworkVersion}.tgz'"
+//        sh "tar -xzf ${frameworkPath}/${frameworkName}/${frameworkVersion}/${frameworkName}-${frameworkVersion}.tgz -C ${frameworkPath}"
+//        echo "********* End of download artifacts 'Ansible playbooks' from Artifactory server **********"
+//    }
 //
 //    // --------------------------------------
 //    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
