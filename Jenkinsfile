@@ -52,16 +52,26 @@ node {
 //    // --------------------------------------
 //    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
 //    // This stage is added for Jenkins to upload artifacts to Artifactory server
+//    stage('Upload artifacts to Artifactory server') {
+//        echo "********* Start to upload artifacts to Artifactory server **********"
+//        GString projectArchivePath = "${WORKSPACE}/*tgz"
+//        def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
+//        def artifactory = new ArtifactoryToolsPlugin()
+//        artifactory.artifactoryConfig(env, artifactoryRepo, null, "${projectArchivePath}", null, projectName, projectVersion)
+//        artifactoryServer.upload(env.uploadSpec)
+//        echo "********* End of upload artifacts to Artifactory server **********"
+//    }
+
     stage('Upload artifacts to Artifactory server') {
         echo "********* Start to upload artifacts to Artifactory server **********"
         GString projectArchivePath = "${WORKSPACE}/*tgz"
         def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
         def artifactory = new ArtifactoryToolsPlugin()
-        artifactory.artifactoryConfig(env, artifactoryRepo, null, "${projectArchivePath}", atfVersion, projectName, projectVersion)
+        artifactory.artifactoryProjectConfig(env, artifactoryRepo, "${projectArchivePath}", projectName, projectVersion)
         artifactoryServer.upload(env.uploadSpec)
         echo "********* End of upload artifacts to Artifactory server **********"
     }
-//
+
 //    // --------------------------------------
 //    // This stage is added to download Ansible from Artifactory and extract it
     stage('Download artifacts from Artifactory server and extract it') {
