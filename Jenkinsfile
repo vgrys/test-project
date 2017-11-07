@@ -68,6 +68,13 @@ node {
         echo "********* End of upload artifacts to Artifactory server **********"
     }
 
+    stage('Download artifacts from Artifactory server') {
+        echo "********* Start to download artifacts from Artifactory server **********"
+        artifactoryTools.downloadAnsible(artifactoryUrl, artifactoryRepo, frameworkName, frameworkVersion)
+        echo "********* End of download artifacts from Artifactory server **********"
+    }
+
+
 //    // --------------------------------------
 //    // This stage is added to download Ansible from Artifactory and extract it
 //    stage('Download artifacts from Artifactory server and extract it') {
