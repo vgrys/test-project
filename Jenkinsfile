@@ -30,6 +30,7 @@ node {
         deleteDir()
         checkout scm
         gitInfo()
+        echo ${projectName}
     }
 
     // --------------------------------------
