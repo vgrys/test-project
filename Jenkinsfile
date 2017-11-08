@@ -14,7 +14,7 @@ String frameworkName = "framework"
 
 String targetHostUser = 'vagrant'
 String targetHost = "${targetHostUser}@192.168.56.21"
-string targetGroup = "prod"
+String targetGroup = "prod"
 
 node {
 
@@ -44,8 +44,8 @@ node {
         echo "********* Start to create project archive **********"
         GString sourceFolder = "${WORKSPACE}"
         def zip = new ZipTools()
-        def bundlePath = zip.bundle(env, sourceFolder, ['.git', '.gitignore'])
-        echo "created an archive $bundlePath"
+        projectName = zip.bundle(env, sourceFolder, ['.git', '.gitignore'])
+        echo "created an archive '$projectName'"
         echo "********* End of create project archive **********"
     }
 //
@@ -70,8 +70,14 @@ node {
 
     stage('Download artifacts from Artifactory server') {
         echo "********* Start to download artifacts from Artifactory server **********"
-        artifactoryTools.downloadAnsible(artifactoryUrl, artifactoryRepo, frameworkName, frameworkVersion)
+        artifactoryTools.ansibleDownload(artifactoryUrl, artifactoryRepo, frameworkName, frameworkVersion)
         echo "********* End of download artifacts from Artifactory server **********"
+    }
+
+    stage ('Extract Ansible archive') {
+        echo pipelineConfig.pad("start to extract Ansible Archive")
+        artifactoryTools.extractAnsible(frameworkName, frameworkVersion)
+        echo pipelineConfig.pad("Ansible playbooks extracted")
     }
 
 
@@ -122,13 +128,13 @@ node {
 //        sh "ssh -o StrictHostKeyChecking=no ${targetHost} /bin/bash -c '\"${commandToRun}\"'"
 //    }
 
-//    stage('Project deployment') {
-//        echo pad("Start project deployment")
-//        sshagent([sshKeyId]) {
-//            runDeployProject(artifactoryUrl, artifactoryRepo, projectVersion, projectName)
-//        }
-//        echo pad("End of project deployment")
-//    }
+    stage('Project deployment') {
+        echo pad("Start project deployment")
+        sshagent([sshKeyId]) {
+            runDeployProject(artifactoryUrl, artifactoryRepo, projectName)
+        }
+        echo pad("End of project deployment")
+    }
 
 
     stage('ATF deploy') {
