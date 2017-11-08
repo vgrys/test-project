@@ -44,7 +44,7 @@ node {
         echo "********* Start to create project archive **********"
         GString sourceFolder = "${WORKSPACE}"
         def zip = new ZipTools()
-        projectName = zip.bundle(env, sourceFolder, ['.git', '.gitignore'], projectName)
+        projectName = zip.bundle(sourceFolder, ['.git', '.gitignore'], projectName)
         echo "created an archive '$projectName'"
         echo "********* End of create project archive **********"
     }
