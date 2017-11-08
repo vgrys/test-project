@@ -77,7 +77,8 @@ node {
 
     stage ('Extract Ansible archive') {
         echo pipelineConfig.pad("start to extract Ansible Archive")
-        ZipTools.extractAnsible(frameworkName, frameworkVersion)
+        def zip = new ZipTools()
+        zip.extractAnsible(frameworkName, frameworkVersion)
         echo pipelineConfig.pad("Ansible playbooks extracted")
     }
 
