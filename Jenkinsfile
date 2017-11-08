@@ -44,7 +44,7 @@ node {
         echo "********* Start to create project archive **********"
         GString sourceFolder = "${WORKSPACE}"
         def zip = new ZipTools()
-        projectName = zip.bundle(sourceFolder, ['.git', '.gitignore'], projectName)
+        projectName = zip.bundle(sourceFolder, ['.git', '.gitignore'])
         echo "created an archive '$projectName'"
         echo "********* End of create project archive **********"
     }
@@ -62,10 +62,10 @@ node {
 //        echo "********* End of upload artifacts to Artifactory server **********"
 //    }
 
-    stage('Upload artifacts to Artifactory server') {
-        echo "********* Start to upload artifacts to Artifactory server **********"
-        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, projectName, projectVersion)
-        echo "********* End of upload artifacts to Artifactory server **********"
+    stage('Upload project to Artifactory server') {
+        echo "********* Start to upload project to Artifactory server **********"
+        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, projectName)
+        echo "********* End of upload project to Artifactory server **********"
     }
 
     stage('Download artifacts from Artifactory server') {
