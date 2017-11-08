@@ -7,6 +7,7 @@
 String artifactoryRepo = 'bigdata-dss-automation'
 String artifactoryUrl = 'http://192.168.56.105:8081'
 String atfVersion = '0.1.0'
+String atfRelease = 'release'
 String projectVersion = '0.1'
 String projectName = 'sample-project'
 String playbooksName = 'ci-cd-playbooks'
@@ -96,7 +97,7 @@ node {
     stage('ATF deploy') {
         echo pipelineConfig.pad("Start to deploy AFT project **********")
 //        sshagent([sshKeyId]) {
-        pipelineConfig.runDeployATF(artifactoryUrl, artifactoryRepo, atfVersion, targetGroup)
+        pipelineConfig.runDeployATF(artifactoryUrl, artifactoryRepo, atfVersion, atfRelease, projectName, targetGroup)
 //        }
         echo pipelineConfig.pad("End of deploy AFT project")
     }
