@@ -1,6 +1,6 @@
 #!/usr/bin/groovy
 
-@Library('shared-library@release/version1')
+@Library('shared-library@feature/testing')
 //import com.epam.ArtifactoryToolsPlugin
 
 
@@ -57,7 +57,7 @@ node {
 
     stage('Upload project to Artifactory server') {
         echo "********* Start to upload project to Artifactory server **********"
-        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo)
+        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, "${GIT_REPO}")
         echo "********* End of upload project to Artifactory server **********"
     }
 
