@@ -27,6 +27,7 @@ node {
         echo "********** Clean Jenkins workspace ***********"
         deleteDir()
         checkout scm
+        gitInfo()
     }
 
 //    stage('Check out "cd-cd-framework" repo') {
