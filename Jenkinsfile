@@ -15,6 +15,7 @@ String frameworkName = "framework"
 String targetHostUser = 'vagrant'
 String targetHost = "${targetHostUser}@192.168.56.21"
 String targetGroup = "prod"
+String projectArchiveName
 
 node {
 
@@ -45,8 +46,8 @@ node {
         echo "********* Start to create project archive **********"
         GString sourceFolder = "${WORKSPACE}"
         def zip = new ZipTools()
-        projectName = zip.bundle(sourceFolder, ['.git', '.gitignore'])
-        echo "created an archive '$projectName'"
+        projectArchiveName = zip.bundle(sourceFolder, ['.git', '.gitignore'])
+        echo "created an archive '$projectArchiveName'"
         echo "********* End of create project archive **********"
     }
 //
@@ -65,7 +66,7 @@ node {
 
     stage('Upload project to Artifactory server') {
         echo "********* Start to upload project to Artifactory server **********"
-        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, projectName)
+        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, projectArchiveName)
         echo "********* End of upload project to Artifactory server **********"
     }
 
@@ -133,7 +134,7 @@ node {
     stage('Project deployment') {
         echo pipelineConfig.pad("Start project deployment")
 //        sshagent([sshKeyId]) {
-            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, projectName, targetGroup)
+            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, env.GIT_REPO, projectArchiveName ,targetGroup)
 //        }
         echo pipelineConfig.pad("End of project deployment")
     }
@@ -142,7 +143,7 @@ node {
     stage('ATF deploy') {
         echo pipelineConfig.pad("Start to deploy AFT project **********")
 //        sshagent([sshKeyId]) {
-        pipelineConfig.runDeployATF(artifactoryRepo, artifactoryUrl, atfVersion, projectName, targetGroup)
+        pipelineConfig.runDeployATF(artifactoryRepo, artifactoryUrl, atfVersion, targetGroup)
 //        }
         echo pipelineConfig.pad("End of deploy AFT project")
     }
