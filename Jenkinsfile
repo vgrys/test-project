@@ -11,6 +11,7 @@ String projectVersion = '0.1'
 String projectName = 'sample-project'
 String playbooksName = 'ci-cd-playbooks'
 String playbooksVersion = '0.1'
+String playbooksRelease = 'release'
 
 String targetHostUser = 'vagrant'
 String targetHost = "${targetHostUser}@192.168.56.21"
@@ -72,7 +73,7 @@ node {
 
     stage('Download artifacts from Artifactory server') {
         echo "********* Start to download artifacts from Artifactory server **********"
-        artifactoryTools.ansibleDownload(artifactoryUrl, artifactoryRepo, playbooksName, playbooksVersion)
+        artifactoryTools.ansibleDownload(artifactoryUrl, artifactoryRepo, playbooksName, playbooksRelease, playbooksVersion)
         echo "********* End of download artifacts from Artifactory server **********"
     }
 
