@@ -130,11 +130,11 @@ node {
 //    }
 
     stage('Project deployment') {
-        echo pad("Start project deployment")
+        echo pipelineConfig.pad("Start project deployment")
         sshagent([sshKeyId]) {
             pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, projectName)
         }
-        echo pad("End of project deployment")
+        echo pipelineConfig.pad("End of project deployment")
     }
 
 
