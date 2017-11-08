@@ -8,7 +8,6 @@ String artifactoryRepo = 'bigdata-dss-automation'
 String artifactoryUrl = 'http://192.168.56.105:8081'
 String atfVersion = '0.1.0'
 String atfRelease = 'release'
-String projectVersion = '0.1'
 String projectName = 'sample-project'
 String playbooksName = 'ci-cd-playbooks'
 String playbooksVersion = '0.1'
@@ -32,15 +31,6 @@ node {
         checkout scm
         gitInfo()
     }
-
-//    stage('Check out "cd-cd-framework" repo') {
-//        echo "********* Check out 'framework' repo **********"
-//        dir('framework') {
-//            git branch: 'Artifactory-with-plugin', url: 'https://github.com/vgrys/VAULT.git'
-//        }
-//        echo "********* End of check out 'framework' repo **********"
-//    }
-
 
     // --------------------------------------
     // This stage is added to perform project build
