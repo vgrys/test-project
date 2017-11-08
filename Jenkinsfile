@@ -9,8 +9,8 @@ String artifactoryUrl = 'http://192.168.56.105:8081'
 String atfVersion = '0.0.1'
 String projectVersion = '0.1'
 String projectName = 'sample-project'
-String frameworkVersion = "0.1"
-String frameworkName = "framework"
+String playbooksName = 'ci-cd-playbooks'
+String playbooksVersion = '0.1'
 
 String targetHostUser = 'vagrant'
 String targetHost = "${targetHostUser}@192.168.56.21"
@@ -72,14 +72,14 @@ node {
 
     stage('Download artifacts from Artifactory server') {
         echo "********* Start to download artifacts from Artifactory server **********"
-        artifactoryTools.ansibleDownload(artifactoryUrl, artifactoryRepo, frameworkName, frameworkVersion)
+        artifactoryTools.ansibleDownload(artifactoryUrl, artifactoryRepo, playbooksName, playbooksVersion)
         echo "********* End of download artifacts from Artifactory server **********"
     }
 
     stage ('Extract Ansible archive') {
         echo pipelineConfig.pad("start to extract Ansible Archive")
         def zip = new ZipTools()
-        zip.extractAnsible(frameworkName, frameworkVersion)
+        zip.extractAnsible(playbooksName, playbooksVersion)
         echo pipelineConfig.pad("Ansible playbooks extracted")
     }
 
