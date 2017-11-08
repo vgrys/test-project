@@ -78,7 +78,7 @@ node {
     stage('Project deployment') {
         echo pipelineConfig.pad("Start project deployment")
 //        sshagent([sshKeyId]) {
-            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, projectName, projectArchiveName ,targetGroup)
+            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, "projectName = ${env.GIT_REPO}", projectArchiveName ,targetGroup)
 //        }
         echo pipelineConfig.pad("End of project deployment")
     }
@@ -87,7 +87,7 @@ node {
     stage('ATF deploy') {
         echo pipelineConfig.pad("Start to deploy AFT project **********")
 //        sshagent([sshKeyId]) {
-        pipelineConfig.runDeployATF(artifactoryUrl, artifactoryRepo, atfVersion, atfRelease, projectName, targetGroup)
+        pipelineConfig.runDeployATF(artifactoryUrl, artifactoryRepo, atfVersion, atfRelease, "projectName = ${env.GIT_REPO}", targetGroup)
 //        }
         echo pipelineConfig.pad("End of deploy AFT project")
     }
@@ -99,7 +99,7 @@ node {
 
     stage('Project cleanup') {
         echo pipelineConfig.pad("Start project cleanup")
-        pipelineConfig.runProjectCleanup(projectName, targetGroup)
+        pipelineConfig.runProjectCleanup("projectName = ${env.GIT_REPO}", targetGroup)
         echo pipelineConfig.pad("End of project cleanup")
     }
 }
