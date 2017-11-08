@@ -8,13 +8,13 @@ String artifactoryRepo = 'bigdata-dss-automation'
 String artifactoryUrl = 'http://192.168.56.105:8081'
 String atfVersion = '0.1.0'
 String atfRelease = 'release'
-String projectName = 'sample-project'
+GString projectName = "${env.GIT_REPO}"
 String playbooksName = 'ci-cd-playbooks'
 String playbooksVersion = '0.1'
 String playbooksRelease = 'release'
 
 String targetHostUser = 'vagrant'
-String targetHost = "${targetHostUser}@192.168.56.21"
+GString targetHost = "${targetHostUser}@192.168.56.21"
 String targetGroup = "prod"
 String projectArchiveName
 
@@ -78,7 +78,7 @@ node {
     stage('Project deployment') {
         echo pipelineConfig.pad("Start project deployment")
 //        sshagent([sshKeyId]) {
-            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, env.GIT_REPO, projectArchiveName ,targetGroup)
+            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, projectName, projectArchiveName ,targetGroup)
 //        }
         echo pipelineConfig.pad("End of project deployment")
     }
