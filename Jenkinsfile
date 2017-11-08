@@ -57,14 +57,14 @@ node {
 
     stage('Upload project to Artifactory server') {
         echo "********* Start to upload project to Artifactory server **********"
-        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo, projectArchiveName)
+        artifactoryTools.projectUpload(artifactoryUrl, artifactoryRepo)
         echo "********* End of upload project to Artifactory server **********"
     }
 
-    stage('Download artifacts from Artifactory server') {
-        echo "********* Start to download artifacts from Artifactory server **********"
+    stage('Download playbooks from Artifactory server') {
+        echo "********* Start to download playbooks from Artifactory server **********"
         artifactoryTools.ansibleDownload(artifactoryUrl, artifactoryRepo, playbooksName, playbooksRelease, playbooksVersion)
-        echo "********* End of download artifacts from Artifactory server **********"
+        echo "********* End of download playbooks from Artifactory server **********"
     }
 
     stage ('Extract Ansible archive') {
