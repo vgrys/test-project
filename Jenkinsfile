@@ -77,7 +77,7 @@ node {
 
     stage ('Extract Ansible archive') {
         echo pipelineConfig.pad("start to extract Ansible Archive")
-        artifactoryTools.extractAnsible(frameworkName, frameworkVersion)
+        pipelineConfig.extractAnsible(frameworkName, frameworkVersion)
         echo pipelineConfig.pad("Ansible playbooks extracted")
     }
 
@@ -132,7 +132,7 @@ node {
     stage('Project deployment') {
         echo pad("Start project deployment")
         sshagent([sshKeyId]) {
-            runDeployProject(artifactoryUrl, artifactoryRepo, projectName)
+            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, projectName)
         }
         echo pad("End of project deployment")
     }
