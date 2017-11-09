@@ -37,22 +37,9 @@ node {
         GString sourceFolder = "${WORKSPACE}"
         def zip = new ZipTools()
         def projectBundle = zip.bundle(sourceFolder, ['.git', '.gitignore'])
-        echo "created an archive '$projectArchiveName'"
+        echo "created an archive '$projectBundle'"
         echo "********* End of create project archive **********"
     }
-//
-//    // --------------------------------------
-//    // DEVELOPER NOTE: DO NOT EDIT THIS STAGE
-//    // This stage is added for Jenkins to upload artifacts to Artifactory server
-//    stage('Upload artifacts to Artifactory server') {
-//        echo "********* Start to upload artifacts to Artifactory server **********"
-//        GString projectArchivePath = "${WORKSPACE}/*tgz"
-//        def artifactoryServer = Artifactory.newServer url: "${artifactoryUrl}", credentialsId: 'arifactoryID'
-//        def artifactory = new ArtifactoryToolsPlugin()
-//        artifactory.artifactoryConfig(env, artifactoryRepo, null, "${projectArchivePath}", null, projectName, projectVersion)
-//        artifactoryServer.upload(env.uploadSpec)
-//        echo "********* End of upload artifacts to Artifactory server **********"
-//    }
 
     stage('Upload project to Artifactory server') {
         echo "********* Start to upload project to Artifactory server **********"
