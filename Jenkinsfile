@@ -14,8 +14,7 @@ String playbooksRelease = 'release'
 
 String targetHostUser = 'vagrant'
 GString targetHost = "${targetHostUser}@192.168.56.21"
-String targetGroup = "prod"
-String projectArchiveName
+String targetGroup = "prod12"
 
 node {
 
@@ -37,7 +36,7 @@ node {
         echo "********* Start to create project archive **********"
         GString sourceFolder = "${WORKSPACE}"
         def zip = new ZipTools()
-        projectArchiveName = zip.bundle(sourceFolder, ['.git', '.gitignore'])
+        def projectBundle = zip.bundle(sourceFolder, ['.git', '.gitignore'])
         echo "created an archive '$projectArchiveName'"
         echo "********* End of create project archive **********"
     }
@@ -77,7 +76,7 @@ node {
     stage('Project deployment') {
         echo pipelineConfig.pad("Start project deployment")
 //        sshagent([sshKeyId]) {
-            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, env.GIT_REPO, projectArchiveName ,targetGroup)
+            pipelineConfig.runDeployProject(artifactoryUrl, artifactoryRepo, env.GIT_REPO, env.PROJECT_ARCHIVE ,targetGroup)
 //        }
         echo pipelineConfig.pad("End of project deployment")
     }
