@@ -14,7 +14,7 @@ String playbooksRelease = 'release'
 
 String targetHostUser = 'vagrant'
 GString targetHost = "${targetHostUser}@192.168.56.21"
-String targetGroup = "prod12"
+String targetGroup = "prod"
 
 node {
 
