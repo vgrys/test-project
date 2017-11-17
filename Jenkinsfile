@@ -68,7 +68,6 @@ node {
         echo pipelineConfig.pad("End of project deployment")
     }
 
-
     stage('ATF deploy') {
         echo pipelineConfig.pad("Start to deploy AFT project **********")
 //        sshagent([sshKeyId]) {
